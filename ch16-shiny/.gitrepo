@@ -6,6 +6,6 @@
 [subrepo]
 	remote = https://github.com/info201/ch16-shiny
 	branch = master
-	commit = 3005de9fd1a1f37095cf1131f72ceeed732870a7
-	parent = 11966ea035b841126c06f29793835fa4c07fd2a6
+	commit = 3a6ded92159ef77feb0d75f17d7118e9959cd2d0
+	parent = b497ac1fba4dcef123e73389fbbc4326cf823cf8
 	cmdver = 0.3.1

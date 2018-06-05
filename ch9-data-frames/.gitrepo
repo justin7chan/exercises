@@ -6,6 +6,6 @@
 [subrepo]
 	remote = https://github.com/info201/ch9-data-frames
 	branch = master
-	commit = cc3a505117d9b157eba80565b410fff63968a15a
-	parent = c0c82f5921d18acb3ddbd3d1e53faaf1d9bef537
+	commit = 1bc2b230aa7841969f08ff15c7cef8cfc46cd907
+	parent = 2b6660c7d1aa1eb00678bcdd4ed9f7f15724f77c
 	cmdver = 0.3.1

@@ -56,20 +56,15 @@
 # That's kind of messy. Try using `smooth` geometry instead.
 
 
-# Draw a plot with bar geometry (a bar chart), mapping the diamond's `cut` to 
-# the x-axis
+# Draw a plot with column geometry (a bar chart), mapping the diamond's `cut` to 
+# the x-axis and `price` to the y-axis. Note that by default, column geometry 
+# will us the "sum" of all of the y-values, so that the chart is actually of the
+# TOTAL value of all of the diamonds of that cut!
 
 
 # Add an aesthetic property that will _fill_ each bar geometry based on the 
 # `clarity` of the diamonds. 
 # What kind of chart do you get?
-
-
-# Draw a histogram (using histogram geometry) of diamond prices.
-# Try mapping each bar based on clarity as well!
-
-
-# (For a more traditional "bell-curve", make a histogram of diamond `depth`)
 
 
 
@@ -79,8 +74,8 @@
 
 
 ## Bonus
-# Draw a bar chart of average diamond prices by clarity, and include "error bars"
-# marking the standard error of each measurement.
+# Draw a column chart of average diamond prices by clarity, and include 
+# "error bars" marking the standard error of each measurement.
 #
 # You can calculate standard error as the _standard deviation_ divided by the 
 # square root of the number of measurements (prices)

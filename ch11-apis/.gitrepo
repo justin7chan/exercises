@@ -6,6 +6,6 @@
 [subrepo]
 	remote = https://github.com/info201/ch11-apis
 	branch = solution
-	commit = 8e2533afa23b466466b6964b149f9ec40a4c972c
-	parent = ef8e2dcbce2567df0ee0a1a03787c610c896db8b
+	commit = 5ba32e30bdd245eacc8a8872a713494b4ef1a354
+	parent = 1f9b5d588d2b6ae98ec2860c28b33e32624f6600
 	cmdver = 0.3.1

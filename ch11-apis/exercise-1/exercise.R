@@ -2,66 +2,60 @@
 
 # Load the httr and jsonlite libraries for accessing data
 # You can also load `dplyr` if you wish to use it
-library(httr)
-library(jsonlite)
-library(dplyr)
+library("httr")
+library("jsonlite")
+library("dplyr")
 
-# Create a variable for the API's base URI (https://api.github.com)
+# Create a variable base_uri that stores the base URI (as a string) for the 
+# Github API (https://api.github.com)
 base_uri <- "https://api.github.com"
 
-# Under the "Repositories" category, find the endpoint that will list repos in 
-# an organization
-# Create a variable `resource` that represents the endpoint for the book
-# organization (you can use `paste0()` to construct this, or enter it manually)
-resource <- "/orgs/info201/repos"
+# Under the "Repositories" category of the API documentation, find the endpoint 
+# that will list _repos in an organization_. Then create a variable named
+# `org_resource` that stores the endpoint for the `info201` organization repos 
+# (this is the _path_ to the resource of interest).
+org_resource <- "/orgs/info201/repos"
 
-# Send a GET request to this endpoint (the base.uri followed by the resource)
-# and extract the response body
+# Send a GET request to this endpoint (the `base_uri` followed by the 
+# `org_resource` path). Print the response to show that your request worked. 
+# (The listed URI will also allow you to inspect the JSON in the browser easily).
 response <- GET(paste0(base_uri, resource))
-body <- content(response, "text")
+print(response)
 
-# Convert the body from JSON into a data frame
-info_repos <- fromJSON(body)
+# Extract the content of the response using the `content()` function, saving it
+# in a variable.
+response_text <- content(response, "text")
+
+# Convert the content variable from a JSON string into a data frame.
+info_repos <- fromJSON(response_text)
 
 # How many (public) repositories does the organization have?
 print(nrow(info_repos))
 
+# Now a second query:
+# Create a variable `search_endpoint` that stores the endpoint used to search 
+# for repositories. (Hint: look for a "Search" endpoint in the documentation).
+search_endpoint <- "/search/repositories"
 
-# Use a "Search" endpoint to search for repositories about "visualization" whose
-# language includes "R"
-# Reassign the `resource` variable to refer to the appropriate resource.
-resource <- '/search/repositories'
+# Search queries require a query parameter (for what to search for). Create a 
+# `query_params` list variable that specifies an appropriate key and value for 
+# the search term
+query_params <- list(q = "graphics")
 
-# You will need to specify some query parameters. Create a `query_params` list 
-# variable that specifies an appropriate key and value for the search term and
-# the language
-query_params <- list(q = "visualization", language = "R")
+# Send a GET request to the `search_endpoint`--including your params list as the
+# `query`. Print the response to show that your request worked.
+response <- GET(paste0(base_uri, search_endpoint), query = query_params)
+print(response)
 
-# Send a GET request to this endpoint--including your params list as the `query`.
-# Extract the response body and convert it from JSON.
-response <- GET(paste0(base_uri, resource), query = query_params)
-body <- content(response, "text")
-results <- fromJSON(body)
+# Extract the content of the response and convert it from a JSON string into a
+# data frame. 
+response_text <- content(response, "text")
+graphics_repos = fromJSON(response_text)
 
-# How many search repos did your search find? (Hint: check the list names)
-print(results$total_count)
+# How many search repos did your search find? (Hint: check the list names to 
+# find an appropriate value).
+print(graphics_repos$total_count)
 
-# What are the full names of the top 5 results?
-vis_repo_names <- results$items$full_name[1:5]
-print(vis_repo_names)
-
-
-# Use the API to determine the number of people following Hadly Wickham 
-# (`hadley`, the author of dplyr, ggplot2, and other libraries we'll be using). 
-
-# Find an appropriate endpoint to query for statistics about a particular repo, 
-# and use it to get a list of contributors to the `tidyverse/dplyr` repository.
-# Who were the top 10 contributor in terms of number of total commits?
-# NOTE: This will be a really big response with lots of data!
-resource <- '/repos/tidyverse/dplyr/stats/contributors'
-response <- GET(paste0(base_uri, resource))
-result <- flatten(fromJSON(content(response, "text")))
-contributors <- result %>% 
-  select(author.login, total) %>% 
-  arrange(-total)
-head(contributors, 10)
+# What are the full names of the top 5 repos in the search results?
+graphics_repo_names <- graphics_repos$items$full_name[1:5]
+print(graphics_repo_names)

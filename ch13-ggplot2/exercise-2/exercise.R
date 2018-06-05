@@ -1,8 +1,8 @@
 # Exercise 2: advanced ggplot2 practice
 
 # Install and load the `ggplot2` package
-#install.packages('ggplot2')
-library(ggplot2)
+# install.packages('ggplot2')
+library("ggplot2")
 
 # For this exercise you will again be working with the `diamonds` data set.
 # Use `?diamonds` to review details about this data set
@@ -10,28 +10,38 @@ library(ggplot2)
 
 ## Statistical Transformations
 
-# Draw a bar chart of the diamonds data, organized by cut
-# Each bar's height is based on the "count" (number) of diamonds with that cut
-ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut))
-
-# Use the `stat_count` to apply the statistical transformation "count" to the 
-# diamonds by cut. You do not need a separate geometry layer!
+# Use the `stat_count` to create a bar chart of the "count" of diamonds by cut.
+# You do not need a separate geometry layer!
 ggplot(data = diamonds) +
   stat_count(mapping = aes(x = cut))
 
+# Now use bar geometry to draw a bar chart of the "count" of diamonds by cut.
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut))
+
+# Draw a histogram (using histogram geometry) of diamond prices.
+# Try mapping each bar based on clarity as well!
+ggplot(data = diamonds_sample) +
+  geom_histogram(mapping = aes(x = price, fill = clarity))
+
+# (For a more traditional "bell-curve", make a histogram of diamond `depth`)
+ggplot(data = diamonds_sample) +
+  geom_histogram(mapping = aes(x = depth, fill = clarity))
+
 # Use the `stat_summary` function to draw a chart with a summary layer.
 # Map the x-position to diamond `cut`, and the y-position to diamond `depth`
-# Bonus: use `min` as the function ymin, `max` as the function ymax, and `median` 
+# Bonus: use `min` as the function ymin, `max` as the function ymax, and `median`
 # as the function y
 ggplot(data = diamonds) +
-  stat_summary(mapping = aes(x = cut, y = depth),
-               fun.ymin = min, fun.ymax = max, fun.y = median)
+  stat_summary(
+    mapping = aes(x = cut, y = depth),
+    fun.ymin = min, fun.ymax = max, fun.y = median
+  )
 
 
 ## Position Adjustments
 
-# Draw a bar chart of diamonds organized by cut, with each bar filled by clarity.
+# Draw a bar chart of diamonds counts by cut, with each bar filled by clarity.
 # You should see a _stacked_ bar chart.
 ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = clarity))
@@ -44,14 +54,14 @@ ggplot(data = diamonds) +
 ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge")
 
-# Draw a plot with point geometry with the x-position mapped to `cut` and the 
+# Draw a plot with point geometry with the x-position mapped to `cut` and the
 # y-position mapped to `clarity`
 # This creates a "grid" grouping the points
 ggplot(data = diamonds) +
   geom_point(mapping = aes(x = cut, y = clarity))
 
 # Use the "jitter" position adjustment to keep the points from all overlapping!
-# (This works a little better with a sample of diamond data, such as from the 
+# (This works a little better with a sample of diamond data, such as from the
 # previous exercise).
 ggplot(data = diamonds) +
   geom_point(mapping = aes(x = cut, y = clarity), position = "jitter")
@@ -63,20 +73,20 @@ ggplot(data = diamonds) +
 ggplot(data = diamonds) +
   geom_boxplot(mapping = aes(x = color, y = price))
 
-# This has a lot of outliers, making it harder to read. To fix this, draw the 
+# This has a lot of outliers, making it harder to read. To fix this, draw the
 # same plot but with a _logarithmic_ scale for the y axis.
 ggplot(data = diamonds) +
   geom_boxplot(mapping = aes(x = color, y = price)) +
   scale_y_log10()
 
-# For another version, draw the same plot but with `violin` geometry instead of 
+# For another version, draw the same plot but with `violin` geometry instead of
 # `boxplot` geometry!
 # How does the logarithmic scale change the data presentation?
 ggplot(data = diamonds) +
   geom_violin(mapping = aes(x = color, y = price)) +
   scale_y_log10()
 
-# Another interesting plot: draw a plot of the diamonds price (y) by carat (x), 
+# Another interesting plot: draw a plot of the diamonds price (y) by carat (x),
 # using a heatmap of 2d bins (geom_bin2d)
 # What happens when you make the x and y channels scale logarithmically?
 ggplot(data = diamonds) +
@@ -85,12 +95,12 @@ ggplot(data = diamonds) +
   scale_y_log10()
 
 # Draw a scatter plot for the diamonds price (y) by carat (x). Color each point
-# by the clarity (Remember, this will take a while. Use a sample of the diamonds 
+# by the clarity (Remember, this will take a while. Use a sample of the diamonds
 # for faster results)
 ggplot(data = diamonds) +
   geom_point(mapping = aes(x = carat, y = price, color = clarity))
 
-# Change the color of the previous plot using a ColorBrewer scale of your choice. 
+# Change the color of the previous plot using a ColorBrewer scale of your choice.
 # What looks nice?
 ggplot(data = diamonds) +
   geom_point(mapping = aes(x = carat, y = price, color = clarity)) +
@@ -116,12 +126,12 @@ bar + coord_polar()
 
 ## Facets
 
-# Take the scatter plot of price by carat data (colored by clarity) and add 
+# Take the scatter plot of price by carat data (colored by clarity) and add
 # _facets_ based on the diamond's `color`
 ggplot(data = diamonds) +
   geom_point(mapping = aes(x = carat, y = price, color = clarity)) +
   scale_color_brewer(palette = "Spectral") +
-  facet_wrap(~color)
+  facet_wrap(~ color)
 
 
 ## Saving Plots

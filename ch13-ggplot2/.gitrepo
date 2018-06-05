@@ -6,6 +6,6 @@
 [subrepo]
 	remote = https://github.com/info201/ch13-ggplot2
 	branch = solution
-	commit = 072d711eea5fca4895e67820806eb2799805144d
-	parent = 30d420a15b01dd572513ac656b48b15d877f6efb
+	commit = 839271e24901205a5eb45bb8edbe100b5f935f30
+	parent = ade7762bad675e45d136b418801577115dc6823b
 	cmdver = 0.3.1

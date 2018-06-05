@@ -6,6 +6,6 @@
 [subrepo]
 	remote = https://github.com/info201/ch6-functions
 	branch = solution
-	commit = 9c65e03e1cfad43381414507220b0ef9d7f08de9
-	parent = debc27f7a8f356f92dfac2128339ea41f1978a7c
+	commit = 7fac54b97450a0fa04c47ccf6a67a786b7f31cf5
+	parent = 1d301a9300d3c64d1e5c0327cb26e2a6f058d9b6
 	cmdver = 0.3.1
